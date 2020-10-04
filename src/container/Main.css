@@ -1,0 +1,12 @@
+.search_bar{
+    max-width: 320px !important;
+    justify-content: center;
+    flex: 1 0 auto;
+    margin-left: auto;
+    margin-right: 10px;
+}
+.search{
+    display: flex;
+}
+.order{
+}
