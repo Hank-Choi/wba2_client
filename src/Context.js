@@ -1,8 +1,8 @@
 import React, {createContext, useContext, useState} from "react";
 
 const defaultContext = {
-  user: undefined,
-  setUser: () => {
+  currentUser: undefined,
+  setCurrentUser: () => {
   },
 }
 const UserContext = createContext(defaultContext);
@@ -10,17 +10,17 @@ const UserContext = createContext(defaultContext);
 const UserContextProvider = (props) => {
   const {children} = props
 
-  const setUser = (user) => {
+  const setCurrentUser = (user) => {
     console.log(user)
     setState({
       ...state,
-      user: user
+      currentUser: user
     })
   }
 
   const contextState = {
     ...defaultContext,
-    setUser
+    setCurrentUser
   }
   const [state, setState] = useState(contextState)
 

@@ -16,7 +16,6 @@ export {
   login,
   updateMyProfile,
   getUserProfile,
-  getMyProfile,
   createParticipantProfile,
 } from './userApi.js';
 

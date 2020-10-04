@@ -6,9 +6,9 @@ import './MyProfile.css'
 
 
 export const MyProfile = ({history}) => {
-  const {user} = useUserContext()
+  const {currentUser} = useUserContext()
 
-  if (user) {
+  if (currentUser) {
 
     return (
       <div className="profile-summary">
@@ -19,8 +19,8 @@ export const MyProfile = ({history}) => {
           alt='photo'
         />
         <a className="profileName" onClick={() => history.push('/user/me')}>
-          <b >{user.first_name} {user.last_name}</b>
-          <p >@{user.username}</p>
+          <b >{currentUser.first_name} {currentUser.last_name}</b>
+          <p >@{currentUser.username}</p>
         </a>
       </div>
     );

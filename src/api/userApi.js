@@ -9,16 +9,16 @@ axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 axios.defaults.headers.common['Authorization'] = `Token ${token}`;
 
 // POST /api/v1/user/
-export const signup = user => {
+export const signup = userInfo => {
   delete axios.defaults.headers.common['Authorization']
-  return axios.post('/api/v1/user/', user)
+  return axios.post('/api/v1/user/', userInfo)
 }
 
 // PUT /api/v1/user/login/
-export const login = (user) => {
+export const login = (userInfo) => {
   delete axios.defaults.headers.common['Authorization']
   return axios
-    .put('/api/v1/user/login/', user)
+    .put('/api/v1/user/login/', userInfo)
 }
 
 // PUT /api/v1/user/me/
@@ -27,16 +27,11 @@ export const updateMyProfile = () => {
     .put('/api/v1/user/me/')
 }
 
+// GET /api/v1/user/me/
 // GET /api/v1/user/{user_id}/
 export const getUserProfile = (userId) => {
   return axios
     .get(`/api/v1/user/${userId}/`)
-}
-
-// GET /api/v1/user/me/
-export const getMyProfile = () => {
-  return axios
-    .get(`/api/v1/user/me/`)
 }
 
 // POST /api/v1/user/participant/

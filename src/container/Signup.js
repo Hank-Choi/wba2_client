@@ -13,10 +13,10 @@ export const Signup = ({history}) => {
   const [role, setRole] = useState('');
   const [company, setCompany] = useState('');
   const [university, setUniversity] = useState('');
-  const {user, setUser} = useUserContext()
+  const {currentUser, setCurrentUser} = useUserContext()
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       alert('잘못된 접근입니다.')
       history.push('/')
     }
@@ -29,7 +29,7 @@ export const Signup = ({history}) => {
 
 
   const onClickSignUpButton = e => {
-    const user = {
+    const userInfo = {
       email: email,
       username: username,
       password: password,
@@ -39,7 +39,7 @@ export const Signup = ({history}) => {
       company: company,
       university: university,
     };
-    api.signup(user).then((res) => {
+    api.signup(userInfo).then((res) => {
       history.push('/login')
     }).catch(error => alert(JSON.stringify(error.response.data)))
   }

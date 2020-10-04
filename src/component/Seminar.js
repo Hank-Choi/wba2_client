@@ -11,7 +11,7 @@ export const Seminar = (props) => (
         <List.Header>{props.data.name}</List.Header>
         <List.Content>참여자: {props.data.participant_count}</List.Content>
       </List.Content>
-      <InstructorsSegment className='instructor_segment' data={props.data.instructors}/>
+      <InstructorsSegment className='instructor_segment' data={props.data.instructors} history={props.history}/>
       <Button onClick={() => props.history.push(`/seminar/${props.data.id}`)}
               className='seminar-detail-button'>보기</Button>
     </div>

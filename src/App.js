@@ -14,22 +14,23 @@ import * as api from "./api";
 import {MyProfile} from "./component/MyProfile";
 import {Signup} from "./container/Signup";
 import {SeminarDetailPage} from "./container/SeminarDetailPage";
+import UserPage from "./container/UserPage";
 
 function App({history}) {
-  const {user, setUser} = useUserContext()
+  const {currentUser, setCurrentUser} = useUserContext()
 
   const handleLogout = () => {
     storage.remove('token');
     axios.defaults.headers.common['Authorization'] = '';
-    setUser(undefined)
+    setCurrentUser(undefined)
   }
 
   useEffect(() => {
     const path = history.location.pathname
-    if(!user && path !== "/signup" && path !== "/login"){
-      api.getMyProfile()
+    if(!currentUser && path !== "/signup" && path !== "/login"){
+      api.getUserProfile('me')
         .then((res) => {
-          setUser(res.data)
+          setCurrentUser(res.data)
         })
         .catch(() => {
           history.push('/login')
@@ -48,6 +49,7 @@ function App({history}) {
         <Route path="/login" component={Login} exact/>
         <Route path="/seminar/:seminar_id" exact component={SeminarDetailPage}/>
         <Route path="/signup" component={Signup} exact/>
+        <Route path="/user/:user_id" component={UserPage} exact/>
       </Switch>
       <Link to='/login' onClick={handleLogout}>logout</Link>
     </div>

@@ -10,10 +10,10 @@ export const Login = ({history}) => {
   const [password, setPassword] = useState('')
   const [autoLogin, setAutoLogin] = useState(false)
 
-  const {user,setUser} = useUserContext()
+  const {currentUser,setCurrentUser} = useUserContext()
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       alert('잘못된 접근입니다.')
       history.replace('/')
     }
@@ -31,7 +31,7 @@ export const Login = ({history}) => {
                 storage.set('token', res.data.token);
               }
               axios.defaults.headers.common['Authorization'] = `Token ${res.data.token}`;
-              setUser(res.data)
+              setCurrentUser(res.data)
               history.push('/')
           }).catch(error => alert(JSON.stringify(error.response.data)))
         }}>

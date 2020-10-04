@@ -10,7 +10,7 @@ import ParticipantUnit from "../component/ParticipantUnit";
 export const SeminarDetailPage = ({history, match}) => {
   const [seminar, setSeminar] = useState(undefined)
 
-  const {user, setUser} = useUserContext()
+  const {currentUser, setCurrentUser} = useUserContext()
 
   const _fetchSeminar = () => {
     api.getSeminar(match.params.seminar_id).then((res) => {
@@ -49,11 +49,11 @@ export const SeminarDetailPage = ({history, match}) => {
             }}>참여</Button>
           </div>
           <h3>진행자:</h3>
-          <InstructorsSegment data={seminar.instructors}/>
+          <InstructorsSegment data={seminar.instructors} history={history}/>
           <h3>참여자:</h3>
           <List>
             {seminar.participants ? seminar.participants.map((participant) =>
-              <ParticipantUnit participant={participant}/>
+              <ParticipantUnit participant={participant} history={history}/>
             ):null}
           </List>
         </div>
