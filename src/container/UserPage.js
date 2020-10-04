@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, Form, Grid, List, Popup, Radio, Header, Item,} from 'semantic-ui-react';
+import {Button, Header, Item, List,} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
 
@@ -35,6 +35,9 @@ const UserPage = ({history, match}) => {
         <div style={{
           "padding-top": '50px'
         }}>
+          {user.id === currentUser.id?
+          <Button onClick={()=>history.push('/user/me/update')} >정보 변경</Button>
+            :null}
           <Header dividing>
             <h2>
               username: {user.username}
@@ -62,7 +65,9 @@ const UserPage = ({history, match}) => {
                   담당 세미나:
                 </h3>
                 {user.instructor.charge ?
-                  <Item as='a' onClick={() => {history.push(`/seminar/${user.instructor.charge.id}`)}}>
+                  <Item as='a' onClick={() => {
+                    history.push(`/seminar/${user.instructor.charge.id}`)
+                  }}>
                     {user.instructor.charge.name}
                   </Item>
                   : <h3>"없음"</h3>

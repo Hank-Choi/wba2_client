@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {List, Search, Input, Button, Checkbox} from 'semantic-ui-react';
+import React, {useState} from 'react';
+import {Button, Checkbox, List} from 'semantic-ui-react';
 import * as api from '../api'
 import {FormControl} from "react-bootstrap";
 import './Main.css'
 import {Seminar} from "../component/Seminar";
-import {useUserContext} from "../Context";
 
 export const Main = ({history}) => {
   const [loading, setLoading] = useState(false)
@@ -19,12 +18,12 @@ export const Main = ({history}) => {
       order = 'earliest'
     }
     api.getSeminars(searchWord, order).then((res) => {
-        setSeminars(res.data);
-        setLoading(false);
+      setSeminars(res.data);
+      setLoading(false);
     }).catch(error => alert(JSON.stringify(error.response.data)))
   }
 
-  const list = seminars.map((seminar,index) => <Seminar data={seminar} history={history}/>)
+  const list = seminars.map((seminar, index) => <Seminar data={seminar} history={history}/>)
 
   return (
     <>
@@ -57,6 +56,11 @@ export const Main = ({history}) => {
       <List divided relaxed>
         {list}
       </List>
+      <div>
+        <Button onClick={() => {
+          history.push('/seminar/create')
+        }}> 새로운 세미나 열기 </Button>
+      </div>
     </>
   );
 }

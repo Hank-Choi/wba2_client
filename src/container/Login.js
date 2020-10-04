@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, Form, Grid, Popup, Radio, Segment,} from 'semantic-ui-react';
+import {Button, Form, Popup, Radio, Segment,} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
 import storage from "../lib/storage";
@@ -10,7 +10,7 @@ export const Login = ({history}) => {
   const [password, setPassword] = useState('')
   const [autoLogin, setAutoLogin] = useState(false)
 
-  const {currentUser,setCurrentUser} = useUserContext()
+  const {currentUser, setCurrentUser} = useUserContext()
 
   useEffect(() => {
     if (currentUser) {
@@ -27,12 +27,12 @@ export const Login = ({history}) => {
         </h1>
         <Form className="login_form" onSubmit={() => {
           api.login({username: username, password: password}).then((res) => {
-              if (autoLogin) {
-                storage.set('token', res.data.token);
-              }
-              axios.defaults.headers.common['Authorization'] = `Token ${res.data.token}`;
-              setCurrentUser(res.data)
-              history.push('/')
+            if (autoLogin) {
+              storage.set('token', res.data.token);
+            }
+            axios.defaults.headers.common['Authorization'] = `Token ${res.data.token}`;
+            setCurrentUser(res.data)
+            history.push('/')
           }).catch(error => alert(JSON.stringify(error.response.data)))
         }}>
           <Form.Input

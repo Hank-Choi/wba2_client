@@ -1,6 +1,5 @@
 import axios from 'axios';
 import storage from "../lib/storage";
-import {useUserContext} from "../Context";
 
 const AUTH_TOKEN = 'token'
 const token = storage.get(AUTH_TOKEN)
@@ -22,9 +21,9 @@ export const login = (userInfo) => {
 }
 
 // PUT /api/v1/user/me/
-export const updateMyProfile = () => {
+export const updateMyProfile = (userData) => {
   return axios
-    .put('/api/v1/user/me/')
+    .put('/api/v1/user/me/',userData)
 }
 
 // GET /api/v1/user/me/

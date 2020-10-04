@@ -1,8 +1,10 @@
 import {Image, List} from "semantic-ui-react";
 import React from "react";
 
-const ParticipantUnit = ({participant,history}) => (
-  <List.Item as='a' onClick={() => {history.push(`/user/${participant.id}`)}}>
+const ParticipantUnit = ({participant, history}) => (
+  <List.Item as='a' onClick={() => {
+    history.push(`/user/${participant.id}`)
+  }}>
     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/tom.jpg'/>
     <List.Content>
       <List.Header>{participant.first_name} {participant.last_name}</List.Header>

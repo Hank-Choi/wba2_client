@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, Form, Grid, List, Popup, Radio, Segment,} from 'semantic-ui-react';
+import {Button, List,} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
-import storage from "../lib/storage";
-import axios from "axios";
 import {InstructorsSegment} from "../component/InstructorsSegment";
 import ParticipantUnit from "../component/ParticipantUnit";
 
@@ -36,19 +34,19 @@ export const SeminarDetailPage = ({history, match}) => {
             <br/>
             시작시간: {seminar.time}
           </h4>
-          {currentUser.instructor && currentUser.instructor.charge && currentUser.instructor.charge.id === seminar.id?
-            <Button>수정</Button>
+          {currentUser.instructor && currentUser.instructor.charge && currentUser.instructor.charge.id === seminar.id ?
+            <Button onClick={() => history.push(`/seminar/${seminar.id}/update`)}>수정</Button>
             :
             null
           }
           <div>
             <Button onClick={() => {
-              api.participateInSeminar(seminar.id,'instructor').then((res) => {
+              api.participateInSeminar(seminar.id, 'instructor').then((res) => {
                 setSeminar(res.data)
               }).catch(error => alert(JSON.stringify(error.response.data)))
             }}>진행</Button>
             <Button onClick={() => {
-              api.participateInSeminar(seminar.id,'participant').then((res) => {
+              api.participateInSeminar(seminar.id, 'participant').then((res) => {
                 setSeminar(res.data)
               }).catch(error => alert(JSON.stringify(error.response.data)))
             }}>참여</Button>
@@ -64,7 +62,7 @@ export const SeminarDetailPage = ({history, match}) => {
           <List>
             {seminar.participants ? seminar.participants.map((participant) =>
               <ParticipantUnit participant={participant} history={history}/>
-            ):null}
+            ) : null}
           </List>
         </div>
       }

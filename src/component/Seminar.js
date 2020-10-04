@@ -1,5 +1,5 @@
 import React from "react";
-import {List, Button} from "semantic-ui-react";
+import {Button, List} from "semantic-ui-react";
 import {InstructorsSegment} from "./InstructorsSegment";
 import './Seminar.css'
 

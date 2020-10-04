@@ -33,4 +33,4 @@ const UserContextProvider = (props) => {
 }
 const useUserContext = () => useContext(UserContext);
 
-export { useUserContext, UserContextProvider }
+export {useUserContext, UserContextProvider}

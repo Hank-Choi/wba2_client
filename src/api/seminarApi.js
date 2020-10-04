@@ -35,9 +35,9 @@ export const getSeminars = (name, order) => {
 }
 
 // POST /api/v1/seminar/{seminar_id}/user/
-export const participateInSeminar = (seminarId,role) => {
+export const participateInSeminar = (seminarId, role) => {
   return axios
-    .post(`/api/v1/seminar/${seminarId}/user/`,{role: role})
+    .post(`/api/v1/seminar/${seminarId}/user/`, {role: role})
 }
 
 // DELETE /api/v1/seminar/{seminar_id}/user/

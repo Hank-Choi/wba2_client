@@ -1,14 +1,16 @@
 import React from "react";
-import {List, Image} from "semantic-ui-react";
+import {Image, List} from "semantic-ui-react";
 
 
-export const InstructorsSegment = ({data,history}) => {
+export const InstructorsSegment = ({data, history}) => {
 
   if (!data) {
     return null;
   }
   const instructors = data.map((instructor, index) =>
-    <List.Item as='a' onClick={() => {history.push(`/user/${instructor.id}`)}}>
+    <List.Item as='a' onClick={() => {
+      history.push(`/user/${instructor.id}`)
+    }}>
       <Image avatar src='https://react.semantic-ui.com/images/avatar/small/tom.jpg'/>
       <List.Content>
         <List.Header>{instructor.first_name} {instructor.last_name}</List.Header>
