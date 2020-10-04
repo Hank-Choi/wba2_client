@@ -20,17 +20,20 @@ function App({history}) {
     axios.defaults.headers.common['Authorization'] = '';
   }
 
-  const {setUser} = useUserContext()
+  const {user, setUser} = useUserContext()
 
   useEffect(() => {
-    api.getMyProfile()
-      .then((res) => {
-        setUser(res.data)
-        history.push('/')
-      })
-      .catch(() => {
-        history.push('/login')
-      })
+    const path = history.location.pathname
+    if(!user && path !== "/signup" && path !== "/login"){
+      api.getMyProfile()
+        .then((res) => {
+          setUser(res.data)
+          history.push('/')
+        })
+        .catch(() => {
+          history.push('/login')
+        })
+    }
   },[])
 
   return (

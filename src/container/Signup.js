@@ -1,84 +1,84 @@
 import React, {useState} from 'react';
-import {Button} from 'semantic-ui-react';
-import Form from 'react-bootstrap/Form';
+import {Form, Button, Select, Input} from 'semantic-ui-react';
+import * as api from '../api'
+import {Col} from "react-bootstrap";
 
-export const Signup = () => {
+export const Signup = ({history}) => {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [role, setRole] = useState('');
+  const [company, setCompany] = useState('');
+  const [university, setUniversity] = useState('');
 
+  const roleOptions = [
+    {key: 'i', text: 'instructor', value: 'instructor'},
+    {key: 'p', text: 'participant', value: 'participant'},
+  ]
 
   const onClickSignUpButton = e => {
     const user = {
-      email: this.state.email,
-      username: this.state.username,
-      password: this.state.password,
-      nickname: this.state.nickname,
+      email: email,
+      username: username,
+      password: password,
+      firstname: firstname,
+      lastname: lastname,
+      role: role,
+      company: company,
+      university: university,
     };
-    e.preventDefault();
-    // this.props.onAddUser(user);
+    // console.log(api.signup(user))
+    api.signup(user).then((res) => {
+      history.push('/login')
+    }).catch(()=>{
+      alert('실패')
+    })
   }
 
   return (
     <div className="signup_page">
-      <Form className="login_form" onSubmit={this.onClickSignUpButton}>
-        <p className="SignUpLabel">회원가입</p>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label className="SignUpSmallLabel">이메일 주소</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={this.state.email}
-            onChange={event => this.setState({email: event.target.value})}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            올바른 이메일 주소가 아닙니다.
-          </Form.Control.Feedback>
+      <Form onSubmit={onClickSignUpButton}>
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Email' placeholder='Email' value={email} type='email'
+                      onChange={(event) => setEmail(event.target.value)}/>
         </Form.Group>
-        <Form.Group controlId="validationFormUsername">
-          <Form.Label className="SignUpSmallLabel">아이디</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter username"
-            aria-describedby="inputGroupPrepend"
-            value={this.state.username}
-            onChange={event =>
-              this.setState({username: event.target.value})
-            }
-            required
-          />
+        <Form.Group widths='equal'>
+          <Form.Input fluid label='Username' placeholder='Username' value={username}
+                      onChange={(event) => setUsername(event.target.value)}/>
+          <Form.Input fluid label='Password' placeholder='Password' value={password} type='password'
+                      onChange={(event) => setPassword(event.target.value)}/>
         </Form.Group>
-        <Form.Group controlId="formBasicNickname">
-          <Form.Label className="SignUpSmallLabel">닉네임</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter nickname"
-            value={this.state.nickname}
-            onChange={event =>
-              this.setState({nickname: event.target.value})
-            }
-            required
-          />
-          <Form.Text className="text-muted">
-            닉네임은 8글자를 넘을 수 없으며, 공백이 들어갈 수 없습니다.
-          </Form.Text>
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label className="SignUpSmallLabel">비밀번호</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={this.state.password}
-            onChange={event =>
-              this.setState({password: event.target.value})
-            }
-            required
+        <Form.Group widths='equal'>
+          <Form.Input fluid onChange={(event) => setFirstname(event.target.value)}
+                      label='First name'
+                      value={firstname}
+                      placeholder='First name'/>
+          <Form.Input fluid label='Last name' placeholder='Last name'
+                      value={lastname}
+                      onChange={(event) => setLastname(event.target.value)}/>
+          <Form.Field
+            control={Select}
+            options={roleOptions}
+            label={{children: 'Role'}}
+            placeholder='Role'
+            onChange={(event) => {
+              setRole(event.target.textContent)
+            }}
           />
         </Form.Group>
-        <div className="SignUpFooter">
-          <Button variant="primary" type="submit" id="login-button">
-            회원가입
-          </Button>
-        </div>
+        <Form.Group widths='equal'>
+          {role === "instructor"?
+            <Form.Input fluid label='Company' placeholder='Company'
+                        value={company}
+                        onChange={(event) => setCompany(event.target.value)}/>:
+            <Form.Input fluid label='University' placeholder='University'
+                        value={university}
+                        onChange={(event) => setUniversity(event.target.value)}/>
+          }
+        </Form.Group>
+        <Form.Button>Submit</Form.Button>
       </Form>
     </div>
   );

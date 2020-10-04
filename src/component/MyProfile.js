@@ -23,13 +23,13 @@ export const MyProfile = (props) => {
           alt='photo'
         />
         <a className="profileName" onClick={props.menu}>
-          <b >{user.first_name} {user.last_name}</b>
+          <b >{user.last_name} {user.first_name}</b>
           <p >@{user.username}</p>
         </a>
       </div>
     );
   }
   else {
-    return (<>abc</>);
+    return null;
   }
 }

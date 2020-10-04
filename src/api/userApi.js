@@ -10,8 +10,7 @@ axios.defaults.headers.common['Authorization'] = `Token ${token}`;
 // POST /api/v1/user/
 export const signup = user => {
   delete axios.defaults.headers.common['Authorization']
-  return axios
-    .post('/api/v1/user/', user)
+  return axios.post('/api/v1/user/', user)
 }
 
 // PUT /api/v1/user/login/
