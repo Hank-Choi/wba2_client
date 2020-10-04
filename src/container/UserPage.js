@@ -1,15 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Divider, Form, Grid, List, Popup, Radio, Header,} from 'semantic-ui-react';
+import {Button, Divider, Form, Grid, List, Popup, Radio, Header, Item,} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
 
 const UserPage = ({history, match}) => {
   const [user, setUser] = useState(undefined)
 
-  const {currentUser} = useUserContext()
+  const {currentUser, setCurrentUser} = useUserContext()
 
   const _fetchUser = () => {
     api.getUserProfile(match.params.user_id).then((res) => {
+      setUser(res.data)
+    }).catch(error => alert(JSON.stringify(error.response.data)))
+  }
+
+  const handlePostParticipant = () => {
+    api.createParticipantProfile().then((res) => {
+      setCurrentUser(res.data);
       setUser(res.data)
     }).catch(error => alert(JSON.stringify(error.response.data)))
   }
@@ -20,7 +27,7 @@ const UserPage = ({history, match}) => {
     } else {
       _fetchUser()
     }
-  }, [currentUser])
+  }, [currentUser, match])
 
   return (
     <div>
@@ -46,14 +53,22 @@ const UserPage = ({history, match}) => {
           </Header>
           <Header dividing>
             {user.instructor ?
-              <h3>
-                company: {user.instructor.company}
-                <br/>
-                year: {user.instructor.year ? user.instructor.year : "정보 없음"}
-                <br/>
-                담당 세미나:
-                {user.instructor.charge ? user.instructor.charge.name : "없음"}
-              </h3>
+              <div>
+                <h3>
+                  company: {user.instructor.company}
+                  <br/>
+                  year: {user.instructor.year ? user.instructor.year : "정보 없음"}
+                  <br/>
+                  담당 세미나:
+                </h3>
+                {user.instructor.charge ?
+                  <Item as='a' onClick={() => {history.push(`/seminar/${user.instructor.charge.id}`)}}>
+                    {user.instructor.charge.name}
+                  </Item>
+                  : <h3>"없음"</h3>
+                }
+
+              </div>
               : null
             }
           </Header>
@@ -63,21 +78,21 @@ const UserPage = ({history, match}) => {
                 <h3>
                   university: {user.participant.university}
                   <br/>
-                  accepted: {user.participant.accepted?'accepted':'not accepted'}
+                  accepted: {user.participant.accepted ? 'accepted' : 'not accepted'}
                   <br/>
                   신청한 세미나:
                 </h3>
                 <List>
                   {user.participant.seminars ? user.participant.seminars.map((seminar) => (
-                    <h5>
-                      name:{seminar.name}
+                    <Item as='a' onClick={() => history.push(`/seminar/${seminar.id}`)}>
+                      {seminar.name}
                       <br/>
-                      {seminar.is_active?"참여 중":"드랍:"+seminar.dropped_at}
-                    </h5>
+                      {seminar.is_active ? "참여 중" : "드랍:" + seminar.dropped_at}
+                    </Item>
                   )) : "없음"}
                 </List>
               </div>
-              : <Button>참여자로 등록</Button>
+              : <Button onClick={handlePostParticipant}>참여자로 등록</Button>
             }
           </Header>
         </div>

@@ -20,7 +20,7 @@ export const SeminarDetailPage = ({history, match}) => {
 
   useEffect(() => {
     _fetchSeminar()
-  }, [])
+  }, [match])
 
   return (
     <div>
@@ -36,6 +36,11 @@ export const SeminarDetailPage = ({history, match}) => {
             <br/>
             시작시간: {seminar.time}
           </h4>
+          {currentUser.instructor && currentUser.instructor.charge && currentUser.instructor.charge.id === seminar.id?
+            <Button>수정</Button>
+            :
+            null
+          }
           <div>
             <Button onClick={() => {
               api.participateInSeminar(seminar.id,'instructor').then((res) => {
@@ -47,6 +52,11 @@ export const SeminarDetailPage = ({history, match}) => {
                 setSeminar(res.data)
               }).catch(error => alert(JSON.stringify(error.response.data)))
             }}>참여</Button>
+            <Button onClick={() => {
+              api.dropOutOfSeminar(seminar.id).then((res) => {
+                setSeminar(res.data)
+              }).catch(error => alert(JSON.stringify(error.response.data)))
+            }}>드랍</Button>
           </div>
           <h3>진행자:</h3>
           <InstructorsSegment data={seminar.instructors} history={history}/>

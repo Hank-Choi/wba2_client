@@ -35,8 +35,8 @@ export const getUserProfile = (userId) => {
 }
 
 // POST /api/v1/user/participant/
-export const createParticipantProfile = (userId) => {
+export const createParticipantProfile = () => {
   return axios
-    .get(`/api/v1/user/participant/`)
+    .post(`/api/v1/user/participant/`)
 }
 
