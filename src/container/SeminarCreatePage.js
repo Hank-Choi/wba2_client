@@ -3,13 +3,11 @@ import {Form,} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
 
-export const SeminarCreatePage = ({history, match}) => {
+const SeminarCreatePage = ({history, match}) => {
   const [name, setName] = useState('')
   const [time, setTime] = useState('')
   const [capacity, setCapacity] = useState('')
   const [count, setCount] = useState('')
-
-  const {currentUser, setCurrentUser} = useUserContext()
 
   const _fetchSeminar = () => {
     api.getSeminar(match.params.seminar_id).then((res) => {
@@ -67,3 +65,5 @@ export const SeminarCreatePage = ({history, match}) => {
     </Form>
   );
 }
+
+export default SeminarCreatePage;

@@ -35,9 +35,9 @@ const UserPage = ({history, match}) => {
         <div style={{
           "padding-top": '50px'
         }}>
-          {user.id === currentUser.id?
-          <Button onClick={()=>history.push('/user/me/update')} >정보 변경</Button>
-            :null}
+          {user.id === currentUser.id ?
+            <Button onClick={() => history.push('/user/me/update')}>정보 변경</Button>
+            : null}
           <Header dividing>
             <h2>
               username: {user.username}

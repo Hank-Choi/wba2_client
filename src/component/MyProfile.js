@@ -3,7 +3,7 @@ import {useUserContext} from "../Context";
 import './MyProfile.css'
 
 
-export const MyProfile = ({history}) => {
+const MyProfile = ({history}) => {
   const {currentUser} = useUserContext()
 
   if (currentUser) {
@@ -26,3 +26,5 @@ export const MyProfile = ({history}) => {
     return null;
   }
 }
+
+export default MyProfile;

@@ -5,7 +5,7 @@ import {useUserContext} from "../Context";
 import storage from "../lib/storage";
 import axios from "axios";
 
-export const Login = ({history}) => {
+const Login = ({history}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [autoLogin, setAutoLogin] = useState(false)
@@ -93,3 +93,5 @@ export const Login = ({history}) => {
       </Segment>
     </div>);
 }
+
+export default Login;

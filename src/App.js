@@ -2,8 +2,6 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Link, Route, Switch, withRouter} from 'react-router-dom';
 import {Image} from "semantic-ui-react";
-import {Login} from "./container/Login";
-import {Main} from "./container/Main";
 
 import 'semantic-ui-css/semantic.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,11 +9,13 @@ import storage from "./lib/storage";
 import axios from "axios";
 import {useUserContext} from "./Context";
 import * as api from "./api";
-import {MyProfile} from "./component/MyProfile";
-import {Signup} from "./container/Signup";
-import {SeminarDetailPage} from "./container/SeminarDetailPage";
+import Login from "./container/Login";
+import Main from "./container/Main";
+import MyProfile from "./component/MyProfile";
+import Signup from "./container/Signup";
+import SeminarDetailPage from "./container/SeminarDetailPage";
 import UserPage from "./container/UserPage";
-import {SeminarCreatePage} from "./container/SeminarCreatePage";
+import SeminarCreatePage from "./container/SeminarCreatePage";
 
 function App({history}) {
   const {currentUser, setCurrentUser} = useUserContext()

@@ -1,10 +1,10 @@
 import React from "react";
 import {Button, List} from "semantic-ui-react";
-import {InstructorsSegment} from "./InstructorsSegment";
+import InstructorsSegment from "./InstructorsSegment";
 import './Seminar.css'
 
 
-export const Seminar = (props) => (
+const Seminar = (props) => (
   <List.Item>
     <div className='seminar-list-flexbox'>
       <List.Content>
@@ -17,3 +17,5 @@ export const Seminar = (props) => (
     </div>
   </List.Item>
 );
+
+export default Seminar;

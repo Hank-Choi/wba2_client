@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Button, List,} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
-import {InstructorsSegment} from "../component/InstructorsSegment";
+import InstructorsSegment from "../component/InstructorsSegment";
 import ParticipantUnit from "../component/ParticipantUnit";
 
-export const SeminarDetailPage = ({history, match}) => {
+const SeminarDetailPage = ({history, match}) => {
   const [seminar, setSeminar] = useState(undefined)
 
-  const {currentUser, setCurrentUser} = useUserContext()
+  const {currentUser} = useUserContext()
 
   const _fetchSeminar = () => {
     api.getSeminar(match.params.seminar_id).then((res) => {
@@ -69,3 +69,5 @@ export const SeminarDetailPage = ({history, match}) => {
     </div>
   );
 }
+
+export default SeminarDetailPage

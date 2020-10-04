@@ -3,7 +3,7 @@ import {Form, Select} from 'semantic-ui-react';
 import * as api from '../api'
 import {useUserContext} from "../Context";
 
-export const Signup = ({history, match}) => {
+const Signup = ({history, match}) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +13,7 @@ export const Signup = ({history, match}) => {
   const [company, setCompany] = useState('');
   const [year, setYear] = useState('');
   const [university, setUniversity] = useState('');
-  const {currentUser, setCurrentUser} = useUserContext()
+  const {currentUser} = useUserContext()
 
   useEffect(() => {
     if (match.path === '/signup') {
@@ -138,3 +138,4 @@ export const Signup = ({history, match}) => {
   );
 }
 
+export default Signup;

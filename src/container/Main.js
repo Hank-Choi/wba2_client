@@ -3,9 +3,9 @@ import {Button, Checkbox, List} from 'semantic-ui-react';
 import * as api from '../api'
 import {FormControl} from "react-bootstrap";
 import './Main.css'
-import {Seminar} from "../component/Seminar";
+import Seminar from "../component/Seminar";
 
-export const Main = ({history}) => {
+const Main = ({history}) => {
   const [loading, setLoading] = useState(false)
   const [searchWord, setSearchWord] = useState('')
   const [earliestOrder, setEarliestOrder] = useState(false)
@@ -64,3 +64,4 @@ export const Main = ({history}) => {
     </>
   );
 }
+export default Main;

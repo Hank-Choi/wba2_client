@@ -2,7 +2,7 @@ import React from "react";
 import {Image, List} from "semantic-ui-react";
 
 
-export const InstructorsSegment = ({data, history}) => {
+const InstructorsSegment = ({data, history}) => {
 
   if (!data) {
     return null;
@@ -25,3 +25,5 @@ export const InstructorsSegment = ({data, history}) => {
     </List>
   );
 }
+
+export default InstructorsSegment;
