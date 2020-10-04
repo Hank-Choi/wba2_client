@@ -21,13 +21,10 @@ export const Main = ({history}) => {
     api.getSeminars(searchWord, order).then((res) => {
         setSeminars(res.data);
         setLoading(false);
-      }
-    ).catch();
+    }).catch(error => alert(JSON.stringify(error.response.data)))
   }
 
-
-
-  const list = seminars.map((seminar,index) => <Seminar data={seminar}/>)
+  const list = seminars.map((seminar,index) => <Seminar data={seminar} history={history}/>)
 
   return (
     <>

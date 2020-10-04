@@ -1,11 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Divider, Form, Grid, Popup, Radio, Segment,} from 'semantic-ui-react';
 import * as api from '../api'
+import {useUserContext} from "../Context";
+import storage from "../lib/storage";
+import axios from "axios";
 
 export const Login = ({history}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [autoLogin, setAutoLogin] = useState(false)
+
+  const {user,setUser} = useUserContext()
+
+  useEffect(() => {
+    if (user) {
+      alert('잘못된 접근입니다.')
+      history.replace('/')
+    }
+  }, [])
 
   return (
     <div className="login_page">
@@ -14,11 +26,14 @@ export const Login = ({history}) => {
           와플 백엔드 과제 2 테스트 웹 페이지
         </h1>
         <Form className="login_form" onSubmit={() => {
-          api.login({username: username, password: password}, autoLogin).then(
-            () => {
+          api.login({username: username, password: password}).then((res) => {
+              if (autoLogin) {
+                storage.set('token', res.data.token);
+              }
+              axios.defaults.headers.common['Authorization'] = `Token ${res.data.token}`;
+              setUser(res.data)
               history.push('/')
-            }
-          ).catch(() => alert("서버가 꺼져있거나 아이디 비밀번호가 틀렸습니다."))
+          }).catch(error => alert(JSON.stringify(error.response.data)))
         }}>
           <Form.Input
             icon="user"

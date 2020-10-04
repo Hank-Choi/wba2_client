@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Button, Select, Input} from 'semantic-ui-react';
 import * as api from '../api'
 import {Col} from "react-bootstrap";
+import {useUserContext} from "../Context";
 
 export const Signup = ({history}) => {
   const [email, setEmail] = useState('');
@@ -12,11 +13,20 @@ export const Signup = ({history}) => {
   const [role, setRole] = useState('');
   const [company, setCompany] = useState('');
   const [university, setUniversity] = useState('');
+  const {user, setUser} = useUserContext()
+
+  useEffect(() => {
+    if (user) {
+      alert('잘못된 접근입니다.')
+      history.push('/')
+    }
+  }, [])
 
   const roleOptions = [
     {key: 'i', text: 'instructor', value: 'instructor'},
     {key: 'p', text: 'participant', value: 'participant'},
   ]
+
 
   const onClickSignUpButton = e => {
     const user = {
@@ -29,12 +39,9 @@ export const Signup = ({history}) => {
       company: company,
       university: university,
     };
-    // console.log(api.signup(user))
     api.signup(user).then((res) => {
       history.push('/login')
-    }).catch(()=>{
-      alert('실패')
-    })
+    }).catch(error => alert(JSON.stringify(error.response.data)))
   }
 
   return (
@@ -69,10 +76,10 @@ export const Signup = ({history}) => {
           />
         </Form.Group>
         <Form.Group widths='equal'>
-          {role === "instructor"?
+          {role === "instructor" ?
             <Form.Input fluid label='Company' placeholder='Company'
                         value={company}
-                        onChange={(event) => setCompany(event.target.value)}/>:
+                        onChange={(event) => setCompany(event.target.value)}/> :
             <Form.Input fluid label='University' placeholder='University'
                         value={university}
                         onChange={(event) => setUniversity(event.target.value)}/>

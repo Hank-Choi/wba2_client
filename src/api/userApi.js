@@ -1,5 +1,6 @@
 import axios from 'axios';
 import storage from "../lib/storage";
+import {useUserContext} from "../Context";
 
 const AUTH_TOKEN = 'token'
 const token = storage.get(AUTH_TOKEN)
@@ -14,16 +15,10 @@ export const signup = user => {
 }
 
 // PUT /api/v1/user/login/
-export const login = (user, autoLogin) => {
+export const login = (user) => {
   delete axios.defaults.headers.common['Authorization']
   return axios
     .put('/api/v1/user/login/', user)
-    .then((result) => {
-      if (autoLogin) {
-        storage.set('token', result.data.token);
-      }
-      axios.defaults.headers.common['Authorization'] = `Token ${result.data.token}`;
-    })
 }
 
 // PUT /api/v1/user/me/

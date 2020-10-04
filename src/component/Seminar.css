@@ -1,6 +1,13 @@
 .seminar-list-flexbox{
     display: flex;
+    justify-content: space-between;
 }
 .instructor_segment{
     margin-left: auto;
+}
+.seminar-detail-button{
+    margin-left: auto;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: right;
 }

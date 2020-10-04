@@ -5,12 +5,8 @@ import {render} from "react-dom";
 import './MyProfile.css'
 
 
-export const MyProfile = (props) => {
+export const MyProfile = ({history}) => {
   const {user} = useUserContext()
-
-  useEffect(()=>{
-    console.log(user);
-  },[user])
 
   if (user) {
 
@@ -18,12 +14,12 @@ export const MyProfile = (props) => {
       <div className="profile-summary">
         <img
           className="profile-pic"
-          onClick={() => props.history.push('/')}
+          onClick={() => history.push('/user/me')}
           src='https://react.semantic-ui.com/images/avatar/small/tom.jpg'
           alt='photo'
         />
-        <a className="profileName" onClick={props.menu}>
-          <b >{user.last_name} {user.first_name}</b>
+        <a className="profileName" onClick={() => history.push('/user/me')}>
+          <b >{user.first_name} {user.last_name}</b>
           <p >@{user.username}</p>
         </a>
       </div>
